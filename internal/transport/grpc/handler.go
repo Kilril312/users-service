@@ -55,11 +55,11 @@ func (h *Handler) UpdateUser(ctx context.Context, req *userpb.UpdateUserRequest)
 		Email: updatedUser.Email,
 	}, nil
 }
-func (h *Handler) DeleteUser(ctx context.Context, req *userpb.DeleteUserRequest) (*userpb.DeleteUserResponse, error) {
+func (h *Handler) DeleteUser(ctx context.Context, req *userpb.DeleteUserRequest) (*userpb.EmptyResponse, error) {
 	if err := h.svc.DeleteUser(ctx, uint(req.Id)); err != nil {
 		return nil, err
 	}
-	return &userpb.DeleteUserResponse{}, nil
+	return &userpb.EmptyResponse{}, nil
 
 }
 

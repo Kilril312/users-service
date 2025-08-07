@@ -2,6 +2,8 @@ github.com/Kilril312/project-protos v0.0.0-20250805150441-fdc9bd605147 h1:jP8JrI
 github.com/Kilril312/project-protos v0.0.0-20250805150441-fdc9bd605147/go.mod h1:i3vNh+EnZ37Y/MAQpNksAAvQTJFNmJcYuF0vPUAyksc=
 github.com/Kilril312/project-protos v0.0.0-20250807092312-1926d4308b09 h1:yLSn4KODygioNYXRHsZCvLt0iyAwhD35RhxvZMGbVl4=
 github.com/Kilril312/project-protos v0.0.0-20250807092312-1926d4308b09/go.mod h1:i3vNh+EnZ37Y/MAQpNksAAvQTJFNmJcYuF0vPUAyksc=
+github.com/Kilril312/project-protos v0.0.0-20250807130144-9e763bb60d24 h1:v2oj3hJyGvGgIn/PMWeBgS+42LJieuWYavQbxeMYoGE=
+github.com/Kilril312/project-protos v0.0.0-20250807130144-9e763bb60d24/go.mod h1:i3vNh+EnZ37Y/MAQpNksAAvQTJFNmJcYuF0vPUAyksc=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/jackc/pgpassfile v1.0.0 h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=
 github.com/jackc/pgpassfile v1.0.0/go.mod h1:CEx0iS5ambNFdcRtxPj5JhEz+xB6uRky5eyVu/W2HEg=

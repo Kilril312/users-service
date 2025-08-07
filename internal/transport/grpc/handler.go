@@ -35,21 +35,26 @@ func (h *Handler) CreateUser(ctx context.Context, req *userpb.CreateUserRequest)
 }
 
 func (h *Handler) UpdateUser(ctx context.Context, req *userpb.UpdateUserRequest) (*userpb.User, error) {
-	u := &user.User{
+	updUser := &user.User{
+		ID:       uint(req.Id),
 		Email:    req.Newemail,
 		Password: req.Newpassword,
 	}
 
-	if err := h.svc.UpdateUser(ctx, u); err != nil {
+	if err := h.svc.UpdateUser(ctx, updUser); err != nil {
 		return nil, err
 	}
 
+	updatedUser, err := h.svc.GetUser(ctx, uint(req.Id))
+	if err != nil {
+		return nil, nil
+	}
+
 	return &userpb.User{
-		Id:    uint32(u.ID),
-		Email: u.Email,
+		Id:    uint32(updatedUser.ID),
+		Email: updatedUser.Email,
 	}, nil
 }
-
 func (h *Handler) DeleteUser(ctx context.Context, req *userpb.DeleteUserRequest) (*userpb.DeleteUserResponse, error) {
 	if err := h.svc.DeleteUser(ctx, uint(req.Id)); err != nil {
 		return nil, err

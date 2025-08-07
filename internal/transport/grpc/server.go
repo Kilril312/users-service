@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 
+	userpb "github.com/Kilril312/project-protos/proto/user"
 	"github.com/Kilril312/users-service/internal/user"
 	"google.golang.org/grpc"
 )
@@ -15,8 +16,9 @@ func RunGRPC(svc *user.Service) error {
 	}
 
 	srv := grpc.NewServer()
+	handler := NewHandler(svc)
 
-	userpb.RegisterUserServiceServer(srv, NewHandler(svc))
+	userpb.RegisterUserServiceServer(srv, handler)
 
 	log.Printf("Starting gRPC server on %s", netList.Addr())
 

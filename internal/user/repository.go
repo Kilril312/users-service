@@ -1,6 +1,8 @@
 package user
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type Repository struct {
 	db *gorm.DB
@@ -23,7 +25,18 @@ func (r *Repository) GetbyID(id uint) (*User, error) {
 }
 
 func (r *Repository) Update(user *User) error {
-	return r.db.Save(user).Error
+	result := r.db.Model(user).
+		Where("id = ?", user.ID).
+		Updates(map[string]interface{}{
+			"email":    user.Email,
+			"password": user.Password,
+		})
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
 }
 
 func (r *Repository) Delete(id uint) error {

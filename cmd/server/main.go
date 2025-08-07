@@ -4,16 +4,20 @@ import (
 	"log"
 
 	"github.com/Kilril312/users-service/internal/database"
+	transportgrpc "github.com/Kilril312/users-service/internal/transport/grpc"
 	"github.com/Kilril312/users-service/internal/user"
 )
 
 func main() {
-	db := database.InitDB()
+	db, err := database.InitDB()
+	if err != nil {
+		log.Fatalf("Ошибка инициализации БД: %v", err)
+	}
 
 	repo := user.NewRepository(db)
 	svc := user.NewService(repo)
 
-	if err := transport.RunGRPC(svc); err != nil {
-		log.Fatal("gRPC сервер завершился с ошибкой: %v", err)
+	if err := transportgrpc.RunGRPC(svc); err != nil {
+		log.Fatalf("gRPC сервер завершился с ошибкой: %v", err)
 	}
 }

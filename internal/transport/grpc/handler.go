@@ -34,6 +34,22 @@ func (h *Handler) CreateUser(ctx context.Context, req *userpb.CreateUserRequest)
 	}, nil
 }
 
+func (h *Handler) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*userpb.GetUserResponse, error) {
+	user, err := h.svc.GetUser(ctx, uint(req.Id))
+	if err != nil {
+		return nil, err
+	}
+
+	pUser := userpb.User{
+		Id:    uint32(user.ID),
+		Email: user.Email,
+	}
+
+	return &userpb.GetUserResponse{
+		User: &pUser,
+	}, nil
+}
+
 func (h *Handler) UpdateUser(ctx context.Context, req *userpb.UpdateUserRequest) (*userpb.User, error) {
 	updUser := &user.User{
 		ID:       uint(req.Id),
@@ -55,11 +71,11 @@ func (h *Handler) UpdateUser(ctx context.Context, req *userpb.UpdateUserRequest)
 		Email: updatedUser.Email,
 	}, nil
 }
-func (h *Handler) DeleteUser(ctx context.Context, req *userpb.DeleteUserRequest) (*userpb.EmptyResponse, error) {
+func (h *Handler) DeleteUser(ctx context.Context, req *userpb.DeleteUserRequest) (*userpb.DeleteUserResponse, error) {
 	if err := h.svc.DeleteUser(ctx, uint(req.Id)); err != nil {
 		return nil, err
 	}
-	return &userpb.EmptyResponse{}, nil
+	return &userpb.DeleteUserResponse{Success: true}, nil
 
 }
 

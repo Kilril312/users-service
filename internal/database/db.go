@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/user"
+
+	"github.com/Kilril312/users-service/internal/user"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

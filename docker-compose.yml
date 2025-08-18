@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   users-service:
-    build: ./users-service
-    volumes:
-      - ./users-service:/app
+    build: .
+#    volumes:
+#      - ./users-service:/app
     ports:
       - "50051:50051"
     environment:
@@ -17,7 +17,7 @@ services:
       user-db:
         condition: service_healthy
     networks:
-      - my-app-network
+      - app-network
     restart: unless-stopped
 
   user-db:
@@ -36,50 +36,11 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - my-app-network
-
-  task-service:
-    build: ./tasks-service
-    volumes:
-      - ./tasks-service:/app
-    ports:
-      - "50052:50052"
-    environment:
-      - DB_HOST=task-db
-      - DB_USER=postgres
-      - DB_PASSWORD=qwerty
-      - DB_NAME=tasks
-      - DB_PORT=5432
-      - USER_SERVICE_ADDR=users-service:50051 
-    depends_on:
-      - users-service  
-      - task-db
-    networks:
-      - my-app-network
-    restart: unless-stopped
-
-  task-db:
-    image: postgres:15-alpine
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=qwerty
-      - POSTGRES_DB=tasks
-    ports:
-      - "5438:5432"
-    volumes:
-      - task_db_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    networks:
-      - my-app-network
+      - app-network
 
 volumes:
   user_db_data:
-  task_db_data:
 
 networks:
-  my-app-network:
-    driver: bridge
+  app-network:
+    external: true
